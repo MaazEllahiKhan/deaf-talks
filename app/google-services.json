@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "146809625944",
+    "firebase_url": "https://deaf-talks-default-rtdb.firebaseio.com",
+    "project_id": "deaf-talks",
+    "storage_bucket": "deaf-talks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146809625944:android:b954f84a1c0c1bb55dd92d",
+        "android_client_info": {
+          "package_name": "com.example.deaftalks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "146809625944-j6fd97taa3h7sc2b5tt2k036ohv0qsnb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdQXAvlFeAOL9iJUmWm8kYTKN3VC78DHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "146809625944-j6fd97taa3h7sc2b5tt2k036ohv0qsnb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
