@@ -38,12 +38,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/ic_profile_blue"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_weight="0"
             android:src="@drawable/ic_profile_blue"/>
 
         <ImageView
+            android:id="@+id/ic_profile_orange"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_weight="0"
@@ -77,7 +79,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/blue_shade4"
             android:elevation="20dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -92,23 +94,11 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="50dp"
             android:hint="@string/hint_name"
+            android:backgroundTint="@color/black"
             android:textColorHint="@color/blue_shade3_alpha"
+            android:textColor="@color/blue_shade3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
-        <EditText
-            android:id="@+id/monthlyRateET"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="20dp"
-            android:hint="Monthly Rate $"
-            android:inputType="number"
-            android:textColorHint="@color/blue_shade3_alpha"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hourlyRateET" />
 
 
         <EditText
@@ -117,23 +107,27 @@
             android:layout_height="wrap_content"
             android:hint="Age"
             android:inputType="number"
-            android:layout_marginEnd="30dp"
-            android:textColorHint="@color/blue_shade3_alpha"
-            app:layout_constraintBottom_toBottomOf="@+id/hourlyRateET"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/blue_shade3"
+            app:layout_constraintBottom_toBottomOf="@id/nameET"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/hourlyRateET" />
+            app:layout_constraintHorizontal_bias="0.2"
+            android:textColorHint="@color/blue_shade3_alpha"
+            app:layout_constraintStart_toStartOf="@+id/ethnicityTV"
+            app:layout_constraintTop_toTopOf="@id/nameET" />
 
 
         <TextView
             android:id="@+id/ethnicityTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="30dp"
             android:text="Your Ethnicity"
+            android:fontFamily="@font/font_avenir_next_pro_bold"
             android:textColor="@color/blue_shade4"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ageET"/>
+            app:layout_constraintStart_toStartOf="@+id/ethnicity"
+            app:layout_constraintTop_toBottomOf="@id/ageET" />
 
         <Spinner
             android:id="@+id/ethnicity"
@@ -146,6 +140,38 @@
             android:entries="@array/ethnicities" />
 
         <EditText
+            android:id="@+id/hourlyRateET"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="20dp"
+            android:hint="Hourly Rate $"
+            android:backgroundTint="@color/black"
+            android:inputType="number"
+            android:textColorHint="@color/blue_shade3_alpha"
+            android:textColor="@color/blue_shade3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nameSpinner" />
+
+
+        <EditText
+            android:id="@+id/monthlyRateET"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="20dp"
+            android:hint="Monthly Rate $"
+            android:backgroundTint="@color/black"
+            android:inputType="number"
+            android:textColorHint="@color/blue_shade3_alpha"
+            android:textColor="@color/blue_shade3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hourlyRateET" />
+
+
+        <EditText
             android:id="@+id/yearlyRateET"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -155,23 +181,12 @@
             android:hint="Yearly Rate $"
             android:inputType="number"
             android:textColorHint="@color/blue_shade3_alpha"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/blue_shade3"
             app:layout_constraintBottom_toTopOf="@id/addBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/monthlyRateET"
             app:layout_constraintVertical_bias="0" />
-
-        <EditText
-            android:id="@+id/hourlyRateET"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="20dp"
-            android:hint="Hourly Rate $"
-            android:inputType="number"
-            android:textColorHint="@color/blue_shade3_alpha"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/descriptionLY" />
 
         <Spinner
             android:id="@+id/nameSpinner"
@@ -187,19 +202,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
-            android:text="Select Your Expertise Level"
+            android:text="Expertise Level"
+            android:fontFamily="@font/font_avenir_next_pro_bold"
             android:textColor="@color/blue_shade4"
-            app:layout_constraintBottom_toBottomOf="@+id/nameET"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/nameET" />
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nameET"/>
 
         <LinearLayout
             android:id="@+id/descriptionLY"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="50dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/blue_border_rounded_cornwe"
-            app:layout_constraintTop_toBottomOf="@id/nameET"
+            app:layout_constraintBottom_toTopOf="@id/addBtn"
             tools:layout_editor_absoluteX="30dp">
 
             <EditText
@@ -209,10 +228,12 @@
                 android:layout_margin="8dp"
                 android:background="@color/transparent"
                 android:ellipsize="end"
+                android:textColorHint="@color/blue_shade3_alpha"
+                android:textSize="17sp"
                 android:gravity="start"
+                android:textColor="@color/blue_shade3"
                 android:hint="Describe yourself"
-                android:maxLines="5"
-                android:textColorHint="@color/blue_shade3_alpha" />
+                android:maxLines="5" />
 
         </LinearLayout>
 

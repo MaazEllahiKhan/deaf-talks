@@ -42,12 +42,12 @@ class AddInterceptorFragment : Fragment() {
     private val CAMERA_REQUEST_CODE = 1
     private val GALLERY_REQUEST_CODE = 2
     private lateinit var viewFinder: TextureView
-    private  lateinit var bitmap:Bitmap
+    private lateinit var bitmap: Bitmap
     var db = FirebaseFirestore.getInstance()
     var vFilename: String = ""
-    var expertise:String = ""
-    var ethnicity:String = ""
-    private lateinit var imageName:String
+    var expertise: String = ""
+    var ethnicity: String = ""
+    private lateinit var imageName: String
 
 
     override fun onCreateView(
@@ -62,7 +62,7 @@ class AddInterceptorFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        updateUIAccordingToTheme()
         binding.uploadImgIV.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
                     requireContext(),
@@ -83,9 +83,13 @@ class AddInterceptorFragment : Fragment() {
         val names = resources.getStringArray(R.array.expertise)
         val ethnicities = resources.getStringArray(R.array.ethnicities)
 
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, names)
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_spinner, names)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.nameSpinner.adapter = adapter
+
+        val adapterEthnicity = ArrayAdapter(requireContext(), R.layout.item_spinner, ethnicities)
+        adapterEthnicity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.ethnicity.adapter = adapterEthnicity
 
         binding.nameSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -94,7 +98,7 @@ class AddInterceptorFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                expertise= parent.getItemAtPosition(position) as String
+                expertise = parent.getItemAtPosition(position) as String
 
             }
 
@@ -111,7 +115,7 @@ class AddInterceptorFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                ethnicity= parent.getItemAtPosition(position) as String
+                ethnicity = parent.getItemAtPosition(position) as String
 
             }
 
@@ -122,12 +126,28 @@ class AddInterceptorFragment : Fragment() {
         }
 
         binding.addBtn.setOnClickListener {
-            if(Helper.isInternetConnected(requireContext())) {
+            if (Helper.isInternetConnected(requireContext())) {
                 addButtonClicked()
-            }else{
-                Toast.makeText(requireContext(),"Please Connect to WIFI !",Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(requireContext(), "Please Connect to WIFI !", Toast.LENGTH_LONG)
+                    .show()
             }
         }
+    }
+
+    private fun updateUIAccordingToTheme() {
+        if (Helper.isDarkTheme(requireContext())) {
+            binding.subParentCL.background =
+                requireContext().resources.getDrawable(R.drawable.bg_rounded_white)
+        } else {
+            binding.subParentCL.background =
+                requireContext().resources.getDrawable(R.drawable.bg_rounded_white)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateUIAccordingToTheme()
     }
 
     override fun onDestroyView() {
@@ -136,8 +156,8 @@ class AddInterceptorFragment : Fragment() {
     }
 
     private fun openCamera() {
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(intent, CAMERA_REQUEST_CODE)
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(intent, CAMERA_REQUEST_CODE)
     }
 
     @Deprecated("Deprecated in Java")
@@ -177,13 +197,15 @@ class AddInterceptorFragment : Fragment() {
                 CAMERA_REQUEST_CODE -> {
                     bitmap = data?.extras?.get("data") as Bitmap
                     binding.profileImg.setImageBitmap(getCircleBitmap(bitmap))
-                    binding.uploadImgIV.visibility= GONE
-                    binding.profileImg.visibility= VISIBLE
+                    binding.icProfileOrange.visibility = GONE
+                    binding.icProfileBlue.visibility = GONE
+                    binding.uploadImgIV.visibility = GONE
+                    binding.profileImg.visibility = VISIBLE
                     binding.hourlyRateET.text.clear()
                     binding.descriptionET.text.clear()
                 }
                 GALLERY_REQUEST_CODE -> {
-                   // binding.imageView.setImageURI(data?.data)
+                    // binding.imageView.setImageURI(data?.data)
                 }
             }
         }
@@ -207,31 +229,40 @@ class AddInterceptorFragment : Fragment() {
     }
 
     private fun verifyInput(): Boolean {
-        if(binding.nameET.text.trim().toString().isEmpty()){
+        if (binding.nameET.text.trim().toString().isEmpty()) {
+            binding.nameET.error = "enter text"
             return false
         }
-        if(binding.descriptionET.text.trim().toString().isEmpty()){
+        if (binding.descriptionET.text.trim().toString().isEmpty()) {
+            binding.descriptionET.error = "enter text"
             return false
         }
-        if(binding.hourlyRateET.text.trim().toString().isEmpty()){
+        if (binding.hourlyRateET.text.trim().toString().isEmpty()) {
+            binding.hourlyRateET.error = "enter text"
+
             return false
         }
-        if(binding.monthlyRateET.text.trim().toString().isEmpty()){
+        if (binding.monthlyRateET.text.trim().toString().isEmpty()) {
+            binding.monthlyRateET.error = "enter text"
             return false
         }
-        if(binding.yearlyRateET.text.trim().toString().isEmpty()){
+        if (binding.yearlyRateET.text.trim().toString().isEmpty()) {
+            binding.yearlyRateET.error = "enter text"
             return false
         }
-        if(binding.ageET.text.trim().toString().isEmpty()){
+        if (binding.ageET.text.trim().toString().isEmpty()) {
+            binding.ageET.error = "enter text"
             return false
         }
         return true
     }
 
-    private fun addButtonClicked(){
-        if(verifyInput()){
-            binding.progressBar.visibility= VISIBLE
+    private fun addButtonClicked() {
+        if (verifyInput()) {
+            binding.progressBar.visibility = VISIBLE
             uploadBitmapToFirebase()
+        } else {
+            Toast.makeText(requireContext(), "Fill All fields !", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -250,11 +281,19 @@ class AddInterceptorFragment : Fragment() {
             "admin" to SharedPref.getInstance(requireContext()).getUserName()
         )
 
-        val documentRef = db.collection("interpreters").document(binding.nameET.text.trim().toString())
+        val documentRef =
+            db.collection("interpreters").document(binding.nameET.text.trim().toString())
         documentRef.set(user)
             .addOnSuccessListener {
-                Toast.makeText(requireContext(),"Interpreter added successfully..!",Toast.LENGTH_LONG).show()
-                imageName=""
+                Toast.makeText(
+                    requireContext(),
+                    "Interpreter added successfully..!",
+                    Toast.LENGTH_LONG
+                ).show()
+                imageName = ""
+                binding.uploadImgIV.visibility = VISIBLE
+                binding.icProfileOrange.visibility = VISIBLE
+                binding.icProfileBlue.visibility = VISIBLE
                 binding.uploadImgIV.visibility = VISIBLE
                 binding.profileImg.visibility = GONE
                 binding.nameET.text.clear()
@@ -263,31 +302,38 @@ class AddInterceptorFragment : Fragment() {
                 binding.yearlyRateET.text.clear()
                 binding.descriptionET.text.clear()
                 binding.ageET.text.clear()
-                binding.progressBar.visibility= GONE
+                binding.progressBar.visibility = GONE
 
             }
             .addOnFailureListener { e ->
-                binding.progressBar.visibility= GONE
-                println("Error adding document: $e")
+                Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = GONE
             }
     }
 
     private fun uploadBitmapToFirebase() {
-        binding.progressBar.visibility= VISIBLE
-        val storageRef = FirebaseStorage.getInstance().reference
-        val imagesRef = storageRef.child("images")
+        if (::bitmap.isInitialized) {
+            binding.progressBar.visibility = VISIBLE
+            val storageRef = FirebaseStorage.getInstance().reference
+            val imagesRef = storageRef.child("images")
 
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data = baos.toByteArray()
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
 
-        imageName = "image_${System.currentTimeMillis()}.jpg"
-        val imageRef = imagesRef.child(imageName)
+            imageName = "image_${System.currentTimeMillis()}.jpg"
+            val imageRef = imagesRef.child(imageName)
 
-        val uploadTask = imageRef.putBytes(data)
-        uploadTask.addOnSuccessListener {
-            uploadInterpreterData()
-        }.addOnFailureListener {
+            val uploadTask = imageRef.putBytes(data)
+            uploadTask.addOnSuccessListener {
+                uploadInterpreterData()
+            }.addOnFailureListener {
+                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = GONE
+            }
+        } else {
+            binding.progressBar.visibility = GONE
+            Toast.makeText(requireContext(), "Please upload your image", Toast.LENGTH_LONG).show()
         }
     }
 

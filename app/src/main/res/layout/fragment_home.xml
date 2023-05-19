@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activities.ui.home.HomeFragment">
@@ -19,8 +23,53 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
+        android:id="@+id/titleHeadingTV"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="The Voice of Deaf"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:fontFamily="@font/font_avenir_next_pro_bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_slider"/>
+
+    <TextView
+        android:id="@+id/descriptionTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:lineSpacingExtra="10dp"
+        android:gravity="center"
+        android:letterSpacing="0.1"
+        android:text="DeafTalk sparks an opportunity to bridge the communication gap between the deaf community and the rest of society. Deaf users can sign up, connect with qualified interpreters, and use the service to communicate with anyone, including doctors, teachers, cab drivers, and relatives. The barrier breaks down when communication starts, and it is only one click away with our mobile app."
+        android:textSize="18sp"
+        android:fontFamily="@font/font_family_avenir_next_pro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleHeadingTV"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/findInterpreterBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Find Interpreter !"
+        android:textColor="@color/white"
+        android:padding="20dp"
+        android:background="@drawable/bg_purple_rounded"
+        android:fontFamily="@font/gillsans_semibold"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descriptionTV"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

@@ -94,6 +94,7 @@ class RegisterActivity : AppCompatActivity() {
         documentRef.set(user)
             .addOnSuccessListener {
                 SharedPref.getInstance(this).setIsLoggedIn(true)
+                SharedPref.getInstance(this).setUserName(userIdET.text.trim().toString())
                 val intent = Intent(this, NavDrawerActivity::class.java)
                 startActivity(intent)
                 println("Document added with ID: ${userIdET.text?.trim().toString()}")

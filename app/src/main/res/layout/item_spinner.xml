@@ -1,0 +1,8 @@
+ <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@android:id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primaryTextColor"
+        android:fontFamily="@font/font_avenir_next_pro_italic"
+        android:textSize="16sp"/>

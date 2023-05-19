@@ -1,10 +1,10 @@
 package com.example.deaftalks.utlis
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.*
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
+import com.example.deaftalks.R
 import kotlinx.coroutines.suspendCancellableCoroutine
 
 
@@ -53,7 +53,43 @@ class Helper {
         }
 
 
+        fun isDarkTheme(context: Context):Boolean{
+            var nightMode: Int =
+                context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+            var isDarkThemeOn = nightMode == Configuration.UI_MODE_NIGHT_YES
+                return isDarkThemeOn
+        }
 
+
+
+        fun getColor(context: Context,colorType: Enum.colorType):Int{
+            if(isDarkTheme(context)){
+                if(colorType == Enum.colorType.TEXT){
+
+                  return  context.resources.getColor( R.color.blue_shade3)
+                }else if(colorType == Enum.colorType.PRIMARY){
+                    return   context.resources.getColor( R.color.blue_shade4)
+                }else if(colorType == Enum.colorType.SUB_PRIMARY){
+                    return   context.resources.getColor( R.color.blue_shade3)
+                }
+                else if(colorType == Enum.colorType.HINT){
+                    return context.resources.getColor( R.color.blue_shade3_alpha)
+                }
+            }else{
+                if(colorType == Enum.colorType.TEXT){
+                    return  context.resources.getColor( R.color.white)
+                }else if(colorType == Enum.colorType.PRIMARY){
+                    return   context.resources.getColor( R.color.blue_shade4)
+                }else if(colorType == Enum.colorType.SUB_PRIMARY){
+                    return  context.resources.getColor( R.color.charcoal)
+                }
+                else if(colorType == Enum.colorType.HINT){
+                    return   context.resources.getColor( R.color.grey_whitish)
+
+                }
+            }
+            return R.color.blue_shade4
+        }
 
     }
 

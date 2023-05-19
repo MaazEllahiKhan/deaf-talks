@@ -37,8 +37,8 @@
         <item>Asian</item>
         <item>European</item>
         <item>Hispanic</item>
-        <item>Middle Eastern</item>
-        <item>Native American</item>
-        <item>Pacific Islander</item>
+        <item>Eastern</item>
+        <item>American</item>
+        <item>Islander</item>
     </string-array>
 </resources>
